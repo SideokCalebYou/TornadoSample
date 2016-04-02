@@ -3,13 +3,6 @@ import tornado.web
 
 import os.path
 
-def main():
-    app = make_app()
-    server = tornado.httpserver.HTTPServer(app)
-    server.bind(8888)
-    server.start(0)
-    IOLoop.current().start()
-
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('index.html')
@@ -19,4 +12,7 @@ settings = dict(template_path=os.path.join(os.path.dirname(__file__), "templates
 application = tornado.web.Application([(r"/", MainHandler)],**settings)
 
 if __name__== "__main__":
-    main()
+    print "Server is running"
+    print "ctrl +c to close"
+    application.listen(8881)
+    tornado.ioloop.IOLoop.instance().start()
